@@ -41,30 +41,7 @@
   background-color: lightgray;
 }
 
-.row {
-  height: 100px;
-}
 
-.col {
-  height: 100px;
-  width: 100px;
-  float: left;
-  font-size: 100px;
-  text-align: center;
-  line-height: 100px;
-}
-
-.col:hover {
-    background-color: lightgray;
-}
-
-.border-b {
-  border-bottom: 10px solid #7FDBFF;
-}
-
-.border-r {
-  border-right: 10px solid #7FDBFF;
-}
 .title{
   color:#7FDBFF;
   font-size: 50px;
@@ -79,7 +56,26 @@ body {
   background-color:#001f3f;
 }
 
+.restart-button{
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  background-color: #7FDBFF;
+  border-radius: 5px;
+  margin-left: 75px;
+  margin-top: 10px;
+  
+}
+
 .winner-message {
+  font-size: 20px;
+  margin-bottom: 50px;
+  color: white;
+  text-align: center;
+  animation: zoom-in-zoom-out 1s ease-in-out infinite;
+}
+
+.tie-message {
   font-size: 20px;
   margin-bottom: 50px;
   color: white;

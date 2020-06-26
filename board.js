@@ -4,6 +4,8 @@ class Board {
     this.getCurrentValue = options.getCurrentValue;
     this.moveToNextTurn = options.moveToNextTurn;
     this.checkIfWinner = options.winnerPlayer;
+    this.isTie = options.isTie;
+    this.size = options.size;
   }
 
   createBoardElement = (container, size, cellsInARow) => {
@@ -27,6 +29,7 @@ class Board {
     
     if (this.cells[id].setValue(currentValue)) {
       this.checkIfWinner();
+      this.isTie();
       this.moveToNextTurn();
     }
   }
@@ -35,10 +38,5 @@ class Board {
     return this.cells[selectedCell].cellElement.innerHTML === '';
   }
 
-  cleanBoard(){
-    this.position.forEach(pos => {
-      pos.innerHTML = "";
-      pos.classList.remove("winner");
-    })
-  }
+  
 }
