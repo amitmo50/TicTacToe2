@@ -1,33 +1,44 @@
 class Board {
-  constructor(){
-    this.position = Array.from(document.querySelectorAll('.col'));
+  constructor(options){
+    this.createBoardElement(options.container, options.size);
+    this.getCurrentValue = options.getCurrentValue;
+    this.moveToNextTurn = options.moveToNextTurn;
+    this.checkIfWinner = options.winnerPlayer;
+  }
+
+  createBoardElement = (container, size, cellsInARow) => {
+    this.cells = {};
+    this.boardElement = document.createElement('div');
+    this.boardElement.classList.add('board');
+
+    for (let i = 0; i < size; i++) {
+      this.cells[i] = new Cell({
+        container: this.boardElement,
+        id: i,
+        onClick: this.performTurn
+      }); 
+    }
+
+    container.appendChild(this.boardElement);
+  }
+
+  performTurn = (id) => {
+    const currentValue = this.getCurrentValue();
+    
+    if (this.cells[id].setValue(currentValue)) {
+      this.checkIfWinner();
+      this.moveToNextTurn();
+    }
   }
   
-  winnerPlayer(){
-    let winnerFlag = false;
-    const winnerCombination = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]
-    ];
-    
-    const position = this.position;
-    winnerCombination.forEach((winCombo) => {
-      const textPos0 = position[winCombo[0]].innerText;
-      const textPos1 = position[winCombo[1]].innerText;
-      const textPos2 = position[winCombo[2]].innerText;
-      if(textPos0 === textPos1 && textPos1 === textPos2 && textPos0 !== ''){
-        winCombo.forEach((pos) => {
-          position[pos].className += ' winner';
-        });
-        winnerFlag = true;
-      }
-    });
-    return winnerFlag;
+  isCellAvailable = (selectedCell) => {
+    return this.cells[selectedCell].cellElement.innerHTML === '';
   }
 
   cleanBoard(){
     this.position.forEach(pos => {
       pos.innerHTML = "";
       pos.classList.remove("winner");
-      
     })
   }
 }
