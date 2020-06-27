@@ -75,26 +75,35 @@ class TicTacToeGame{
       this.tieFlag = true;
       this.restartGame();
       this.alertTie();
+      this.cleanBoard();
     }
   }
 
   cleanBoard(){
     const winnerAlert = document.querySelector('.winner-message');
+    const tieAlert = document.querySelector('.tie-message');
     const restartButton = document.querySelector('.restart-button');
     const restartDivButton = document.querySelector('.restart');
     restartButton.addEventListener('click', () => {
         for(let i = 0; i < this.size; i++)
           {
           this.board.cells[i].cellElement.innerHTML = '';
-          this.board.boardElement.classList.remove('game-over');
+          
           if(this.board.cells[i].cellElement.classList.contains('winner')){
             this.board.cells[i].cellElement.classList.remove('winner');
           }
         }
-        document.querySelector('.board').parentNode.removeChild(winnerAlert);
+        this.board.boardElement.classList.remove('game-over');
+        if(this.winnerFlag){
+          document.querySelector('.board').parentNode.removeChild(winnerAlert);
+        }
+        if(this.tieFlag){
+          document.querySelector('.board').parentNode.removeChild(tieAlert);
+        }
         document.querySelector('.board').parentNode.removeChild(restartDivButton);
-        console.log(this.turn);
         this.turn = 0;
+        this.winnerFlag = false;
+        this.tieFlag = false; 
     });
     
   }
@@ -128,5 +137,7 @@ const game = new TicTacToeGame({
 
   }
 });
+console.log(game.tieFlag);
+console.log(game.winnerFlag);
 
 
